@@ -18,15 +18,15 @@
   
   
   <title>Android知识体系-Gradle-Plugin | Hexo</title>
-  <meta name="description" content="插件种类：插件可以分为下两种：  脚本插件：脚本插件是额外的构建脚本，进一步配置构建，常常用于声明一些操作构建的方法，它们通常在构建内部使用。 二进制插件：二进制插件是实现了Plugin的类，并且通过编程方式来操作构建，二进制插件可以在构建脚本中，也可以在buildSrc中，也可以以jar的方式导入。  解析插件：1classpath &#39;com.robin.spi:plugin:1.0.0">
+  <meta name="description" content="插件种类：Gradle Plugin 中的Task主要有三种：**普通Task、增量Task、Transform** 继承 IncrementalTask 的类为增量Task 至于 Transform（变换），是Android官方提供给开发者，在.class → .dex转换期间用来修改.class文件的一套API，留意 transform() 方法的实现就好。 插件可以分为下两种：  脚本插件：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android知识体系-Gradle-Plugin">
 <meta property="og:url" content="http://robinfjb.github.io/2021/05/12/Android%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-Gradle-Plugin/index.html">
 <meta property="og:site_name" content="Robin小站">
-<meta property="og:description" content="插件种类：插件可以分为下两种：  脚本插件：脚本插件是额外的构建脚本，进一步配置构建，常常用于声明一些操作构建的方法，它们通常在构建内部使用。 二进制插件：二进制插件是实现了Plugin的类，并且通过编程方式来操作构建，二进制插件可以在构建脚本中，也可以在buildSrc中，也可以以jar的方式导入。  解析插件：1classpath &#39;com.robin.spi:plugin:1.0.0">
+<meta property="og:description" content="插件种类：Gradle Plugin 中的Task主要有三种：**普通Task、增量Task、Transform** 继承 IncrementalTask 的类为增量Task 至于 Transform（变换），是Android官方提供给开发者，在.class → .dex转换期间用来修改.class文件的一套API，留意 transform() 方法的实现就好。 插件可以分为下两种：  脚本插件：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-12T01:31:37.000Z">
-<meta property="article:modified_time" content="2021-05-12T02:14:37.840Z">
+<meta property="article:modified_time" content="2021-05-20T01:54:16.813Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
@@ -288,7 +288,10 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h3 id="插件种类："><a href="#插件种类：" class="headerlink" title="插件种类："></a>插件种类：</h3><p>插件可以分为下两种：</p>
+        <h3 id="插件种类："><a href="#插件种类：" class="headerlink" title="插件种类："></a>插件种类：</h3><p>Gradle Plugin 中的Task主要有三种：**<code>普通Task</code><strong>、</strong><code>增量Task</code><strong>、</strong><code>Transform</code>**</p>
+<p>继承 <strong><code>IncrementalTask</code></strong> 的类为增量Task</p>
+<p>至于 <strong><code>Transform</code><strong>（变换），是Android官方提供给开发者，在</strong>.class → .dex转换期间用来修改.class文件的一套API</strong>，留意 <strong><code>transform()</code></strong> 方法的实现就好。</p>
+<p>插件可以分为下两种：</p>
 <ul>
 <li>脚本插件：脚本插件是额外的构建脚本，进一步配置构建，常常用于声明一些操作构建的方法，它们通常在构建内部使用。</li>
 <li>二进制插件：二进制插件是实现了Plugin的类，并且通过编程方式来操作构建，二进制插件可以在构建脚本中，也可以在buildSrc中，也可以以jar的方式导入。</li>
