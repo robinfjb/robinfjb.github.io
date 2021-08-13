@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>音视频开发-播放 | Hexo</title>
+  <meta name="description" content="音视频数据提取器Android原生自带有一个MediaExtractor，用于音视频数据分离和提取，基于此做封装 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576">
+<meta property="og:type" content="article">
+<meta property="og:title" content="音视频开发-播放">
+<meta property="og:url" content="http://robinfjb.github.io/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E6%92%AD%E6%94%BE/index.html">
+<meta property="og:site_name" content="Robin小站">
+<meta property="og:description" content="音视频数据提取器Android原生自带有一个MediaExtractor，用于音视频数据分离和提取，基于此做封装 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-31T06:38:25.000Z">
+<meta property="article:modified_time" content="2021-03-31T09:18:17.044Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://robinfjb.github.io/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E6%92%AD%E6%94%BE/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Robin小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/robinfjb" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">R7perfect</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/robinfjb" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+
+    
+      
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">23</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/08/13/Android%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-Matrix/" class="title">Android知识体系-Matrix</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-08-13T08:36:22.000Z" itemprop="datePublished">2021-08-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/05/12/Android%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB-Gradle-Plugin/" class="title">Android知识体系-Gradle-Plugin</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-05-12T01:31:37.000Z" itemprop="datePublished">2021-05-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/04/01/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E5%B0%81%E8%A3%85/" class="title">音视频开发-封装</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-04-01T09:40:31.000Z" itemprop="datePublished">2021-04-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E6%92%AD%E6%94%BE/" class="title">音视频开发-播放</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-31T06:38:25.000Z" itemprop="datePublished">2021-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E7%BC%96%E8%A7%A3%E7%A0%81/" class="title">音视频开发-编解码</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-03-31T01:20:13.000Z" itemprop="datePublished">2021-03-31</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-音视频开发-播放" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      音视频开发-播放
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E6%92%AD%E6%94%BE/" class="article-date">
+	  <time datetime="2021-03-31T06:38:25.000Z" itemprop="datePublished">2021-03-31</time>
+	</a>
+</span>
+        
+        
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E6%92%AD%E6%94%BE/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="音视频数据提取器"><a href="#音视频数据提取器" class="headerlink" title="音视频数据提取器"></a>音视频数据提取器</h3><p>Android原生自带有一个MediaExtractor，用于音视频数据分离和提取，基于此做封装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line">class MMExtractor(path: String?) &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**音视频分离器*&#x2F;</span><br><span class="line">    private var mExtractor: MediaExtractor? &#x3D; null</span><br><span class="line">    </span><br><span class="line">    &#x2F;**音频通道索引*&#x2F;</span><br><span class="line">    private var mAudioTrack &#x3D; -1</span><br><span class="line">    </span><br><span class="line">    &#x2F;**视频通道索引*&#x2F;</span><br><span class="line">    private var mVideoTrack &#x3D; -1</span><br><span class="line">    </span><br><span class="line">    &#x2F;**当前帧时间戳*&#x2F;</span><br><span class="line">    private var mCurSampleTime: Long &#x3D; 0</span><br><span class="line">    </span><br><span class="line">    &#x2F;**开始解码时间点*&#x2F;</span><br><span class="line">    private var mStartPos: Long &#x3D; 0</span><br><span class="line"></span><br><span class="line">    init &#123;</span><br><span class="line">        &#x2F;&#x2F;【1，初始化】</span><br><span class="line">        mExtractor &#x3D; MediaExtractor()</span><br><span class="line">        mExtractor?.setDataSource(path)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 获取视频格式参数</span><br><span class="line">     *&#x2F;</span><br><span class="line">    fun getVideoFormat(): MediaFormat? &#123;</span><br><span class="line">        &#x2F;&#x2F;【2.1，获取视频多媒体格式】</span><br><span class="line">        for (i in 0 until mExtractor!!.trackCount) &#123;</span><br><span class="line">            val mediaFormat &#x3D; mExtractor!!.getTrackFormat(i)</span><br><span class="line">            val mime &#x3D; mediaFormat.getString(MediaFormat.KEY_MIME)</span><br><span class="line">            if (mime.startsWith(&quot;video&#x2F;&quot;)) &#123;</span><br><span class="line">                mVideoTrack &#x3D; i</span><br><span class="line">                break</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return if (mVideoTrack &gt;&#x3D; 0)</span><br><span class="line">            mExtractor!!.getTrackFormat(mVideoTrack)</span><br><span class="line">        else null</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 获取音频格式参数</span><br><span class="line">     *&#x2F;</span><br><span class="line">    fun getAudioFormat(): MediaFormat? &#123;</span><br><span class="line">        &#x2F;&#x2F;【2.2，获取音频频多媒体格式】</span><br><span class="line">        for (i in 0 until mExtractor!!.trackCount) &#123;</span><br><span class="line">            val mediaFormat &#x3D; mExtractor!!.getTrackFormat(i)</span><br><span class="line">            val mime &#x3D; mediaFormat.getString(MediaFormat.KEY_MIME)</span><br><span class="line">            if (mime.startsWith(&quot;audio&#x2F;&quot;)) &#123;</span><br><span class="line">                mAudioTrack &#x3D; i</span><br><span class="line">                break</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return if (mAudioTrack &gt;&#x3D; 0) &#123;</span><br><span class="line">            mExtractor!!.getTrackFormat(mAudioTrack)</span><br><span class="line">        &#125; else null</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 读取视频数据</span><br><span class="line">     *&#x2F;</span><br><span class="line">    fun readBuffer(byteBuffer: ByteBuffer): Int &#123;</span><br><span class="line">        &#x2F;&#x2F;【3，提取数据】</span><br><span class="line">        byteBuffer.clear()</span><br><span class="line">        selectSourceTrack()</span><br><span class="line">        var readSampleCount &#x3D; mExtractor!!.readSampleData(byteBuffer, 0)</span><br><span class="line">        if (readSampleCount &lt; 0) &#123;</span><br><span class="line">            return -1</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;记录当前帧的时间戳</span><br><span class="line">        mCurSampleTime &#x3D; mExtractor!!.sampleTime</span><br><span class="line">        &#x2F;&#x2F;进入下一帧</span><br><span class="line">        mExtractor!!.advance()</span><br><span class="line">        return readSampleCount</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 选择通道</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private fun selectSourceTrack() &#123;</span><br><span class="line">        if (mVideoTrack &gt;&#x3D; 0) &#123;</span><br><span class="line">            mExtractor!!.selectTrack(mVideoTrack)</span><br><span class="line">        &#125; else if (mAudioTrack &gt;&#x3D; 0) &#123;</span><br><span class="line">            mExtractor!!.selectTrack(mAudioTrack)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * Seek到指定位置，并返回实际帧的时间戳</span><br><span class="line">     * SEEK_TO_PREVIOUS_SYNC：跳播位置的上一个关键帧</span><br><span class="line">	 * SEEK_TO_NEXT_SYNC：跳播位置的下一个关键帧</span><br><span class="line">	 * SEEK_TO_CLOSEST_SYNC：距离跳播位置的最近的关键帧</span><br><span class="line">     *&#x2F;</span><br><span class="line">    fun seek(pos: Long): Long &#123;</span><br><span class="line">        mExtractor!!.seekTo(pos, MediaExtractor.SEEK_TO_PREVIOUS_SYNC)</span><br><span class="line">        return mExtractor!!.sampleTime</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 停止读取数据</span><br><span class="line">     *&#x2F;</span><br><span class="line">    fun stop() &#123;</span><br><span class="line">        &#x2F;&#x2F;【4，释放提取器】</span><br><span class="line">        mExtractor?.release()</span><br><span class="line">        mExtractor &#x3D; null</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun getVideoTrack(): Int &#123;</span><br><span class="line">        return mVideoTrack</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun getAudioTrack(): Int &#123;</span><br><span class="line">        return mAudioTrack</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fun setStartPos(pos: Long) &#123;</span><br><span class="line">        mStartPos &#x3D; pos</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 获取当前帧时间</span><br><span class="line">     *&#x2F;</span><br><span class="line">    fun getCurrentTimestamp(): Long &#123;</span><br><span class="line">        return mCurSampleTime</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>readBuffer(byteBuffer: ByteBuffer)中的参数就是解码器传进来的，用于存放待解码数据的缓冲区。</p>
+<h5 id="视频提取器"><a href="#视频提取器" class="headerlink" title="视频提取器"></a>视频提取器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class VideoExtractor(path: String): IExtractor &#123;</span><br><span class="line"></span><br><span class="line">    private val mMediaExtractor &#x3D; MMExtractor(path)</span><br><span class="line"></span><br><span class="line">    override fun getFormat(): MediaFormat? &#123;</span><br><span class="line">        return mMediaExtractor.getVideoFormat()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun readBuffer(byteBuffer: ByteBuffer): Int &#123;</span><br><span class="line">        return mMediaExtractor.readBuffer(byteBuffer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun getCurrentTimestamp(): Long &#123;</span><br><span class="line">        return mMediaExtractor.getCurrentTimestamp()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun seek(pos: Long): Long &#123;</span><br><span class="line">        return mMediaExtractor.seek(pos)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun setStartPos(pos: Long) &#123;</span><br><span class="line">        return mMediaExtractor.setStartPos(pos)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun stop() &#123;</span><br><span class="line">        mMediaExtractor.stop()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="音频提取器"><a href="#音频提取器" class="headerlink" title="音频提取器"></a>音频提取器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class AudioExtractor(path: String): IExtractor &#123;</span><br><span class="line"></span><br><span class="line">    private val mMediaExtractor &#x3D; MMExtractor(path)</span><br><span class="line"></span><br><span class="line">    override fun getFormat(): MediaFormat? &#123;</span><br><span class="line">        return mMediaExtractor.getAudioFormat()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun readBuffer(byteBuffer: ByteBuffer): Int &#123;</span><br><span class="line">        return mMediaExtractor.readBuffer(byteBuffer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun getCurrentTimestamp(): Long &#123;</span><br><span class="line">        return mMediaExtractor.getCurrentTimestamp()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun seek(pos: Long): Long &#123;</span><br><span class="line">        return mMediaExtractor.seek(pos)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun setStartPos(pos: Long) &#123;</span><br><span class="line">        return mMediaExtractor.setStartPos(pos)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun stop() &#123;</span><br><span class="line">        mMediaExtractor.stop()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="播放"><a href="#播放" class="headerlink" title="播放"></a>播放</h3><h5 id="视频解码器"><a href="#视频解码器" class="headerlink" title="视频解码器"></a>视频解码器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">class VideoDecoder(path: String,</span><br><span class="line">                   sfv: SurfaceView?,</span><br><span class="line">                   surface: Surface?): BaseDecoder(path) &#123;</span><br><span class="line">    private val TAG &#x3D; &quot;VideoDecoder&quot;</span><br><span class="line">    </span><br><span class="line">    private val mSurfaceView &#x3D; sfv</span><br><span class="line">    private var mSurface &#x3D; surface</span><br><span class="line">    </span><br><span class="line">    override fun check(): Boolean &#123;</span><br><span class="line">        if (mSurfaceView &#x3D;&#x3D; null &amp;&amp; mSurface &#x3D;&#x3D; null) &#123;</span><br><span class="line">            Log.w(TAG, &quot;SurfaceView和Surface都为空，至少需要一个不为空&quot;)</span><br><span class="line">            mStateListener?.decoderError(this, &quot;显示器为空&quot;)</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun initExtractor(path: String): IExtractor &#123;</span><br><span class="line">        return VideoExtractor(path)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun initSpecParams(format: MediaFormat) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun configCodec(codec: MediaCodec, format: MediaFormat): Boolean &#123;</span><br><span class="line">        if (mSurface !&#x3D; null) &#123;</span><br><span class="line">            codec.configure(format, mSurface , null, 0)</span><br><span class="line">            notifyDecode()</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            mSurfaceView?.holder?.addCallback(object : SurfaceHolder.Callback2 &#123;</span><br><span class="line">                override fun surfaceRedrawNeeded(holder: SurfaceHolder) &#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) &#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                override fun surfaceDestroyed(holder: SurfaceHolder) &#123;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                override fun surfaceCreated(holder: SurfaceHolder) &#123;</span><br><span class="line">                    mSurface &#x3D; holder.surface</span><br><span class="line">                    configCodec(codec, format)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun initRender(): Boolean &#123;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun render(outputBuffers: ByteBuffer,</span><br><span class="line">                        bufferInfo: MediaCodec.BufferInfo) &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun doneDecode() &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="配置解码器"><a href="#配置解码器" class="headerlink" title="配置解码器"></a>配置解码器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">abstract class BaseDecoder(private val mFilePath: String): IDecoder &#123;</span><br><span class="line">    &#x2F;&#x2F;省略其他</span><br><span class="line">    ......</span><br><span class="line">    </span><br><span class="line">    private fun initCodec(): Boolean &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            val type &#x3D; mExtractor!!.getFormat()!!.getString(MediaFormat.KEY_MIME)</span><br><span class="line">            mCodec &#x3D; MediaCodec.createDecoderByType(type)</span><br><span class="line">            if (!configCodec(mCodec!!, mExtractor!!.getFormat()!!)) &#123;</span><br><span class="line">                waitDecode()</span><br><span class="line">            &#125;</span><br><span class="line">            mCodec!!.start()</span><br><span class="line">        </span><br><span class="line">            mInputBuffers &#x3D; mCodec?.inputBuffers</span><br><span class="line">            mOutputBuffers &#x3D; mCodec?.outputBuffers</span><br><span class="line">        &#125; catch (e: Exception) &#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解码器中使用Surface来渲染视频</p>
+<p>渲染:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mCodec!!.releaseOutputBuffer(index, true)</span><br></pre></td></tr></table></figure>
+<h5 id="音频解码器"><a href="#音频解码器" class="headerlink" title="音频解码器"></a>音频解码器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">class AudioDecoder(path: String): BaseDecoder(path) &#123;</span><br><span class="line">    &#x2F;**采样率*&#x2F;</span><br><span class="line">    private var mSampleRate &#x3D; -1</span><br><span class="line">    </span><br><span class="line">    &#x2F;**声音通道数量*&#x2F;</span><br><span class="line">    private var mChannels &#x3D; 1</span><br><span class="line"></span><br><span class="line">    &#x2F;**PCM采样位数*&#x2F;</span><br><span class="line">    private var mPCMEncodeBit &#x3D; AudioFormat.ENCODING_PCM_16BIT</span><br><span class="line"></span><br><span class="line">    &#x2F;**音频播放器*&#x2F;</span><br><span class="line">    private var mAudioTrack: AudioTrack? &#x3D; null</span><br><span class="line"></span><br><span class="line">    &#x2F;**音频数据缓存*&#x2F;</span><br><span class="line">    private var mAudioOutTempBuf: ShortArray? &#x3D; null</span><br><span class="line">    </span><br><span class="line">    override fun check(): Boolean &#123;</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun initExtractor(path: String): IExtractor &#123;</span><br><span class="line">        return AudioExtractor(path)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun initSpecParams(format: MediaFormat) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            mChannels &#x3D; format.getInteger(MediaFormat.KEY_CHANNEL_COUNT)</span><br><span class="line">            mSampleRate &#x3D; format.getInteger(MediaFormat.KEY_SAMPLE_RATE)</span><br><span class="line"></span><br><span class="line">            mPCMEncodeBit &#x3D; if (format.containsKey(MediaFormat.KEY_PCM_ENCODING)) &#123;</span><br><span class="line">                format.getInteger(MediaFormat.KEY_PCM_ENCODING)</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F;如果没有这个参数，默认为16位采样</span><br><span class="line">                AudioFormat.ENCODING_PCM_16BIT</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (e: Exception) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun configCodec(codec: MediaCodec, format: MediaFormat): Boolean &#123;</span><br><span class="line">        codec.configure(format, null , null, 0)</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun initRender(): Boolean &#123;</span><br><span class="line">        val channel &#x3D; if (mChannels &#x3D;&#x3D; 1) &#123;</span><br><span class="line">            &#x2F;&#x2F;单声道</span><br><span class="line">            AudioFormat.CHANNEL_OUT_MONO</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            &#x2F;&#x2F;双声道</span><br><span class="line">            AudioFormat.CHANNEL_OUT_STEREO</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;获取最小缓冲区</span><br><span class="line">        val minBufferSize &#x3D; AudioTrack.getMinBufferSize(mSampleRate, channel, mPCMEncodeBit)</span><br><span class="line"></span><br><span class="line">        mAudioOutTempBuf &#x3D; ShortArray(minBufferSize&#x2F;2)</span><br><span class="line"></span><br><span class="line">        mAudioTrack &#x3D; AudioTrack(</span><br><span class="line">            AudioManager.STREAM_MUSIC,&#x2F;&#x2F;播放类型：音乐</span><br><span class="line">            mSampleRate, &#x2F;&#x2F;采样率</span><br><span class="line">            channel, &#x2F;&#x2F;通道</span><br><span class="line">            mPCMEncodeBit, &#x2F;&#x2F;采样位数</span><br><span class="line">            minBufferSize, &#x2F;&#x2F;缓冲区大小</span><br><span class="line">            AudioTrack.MODE_STREAM) &#x2F;&#x2F;播放模式：数据流动态写入，另一种是一次性写入</span><br><span class="line">            </span><br><span class="line">        mAudioTrack!!.play()</span><br><span class="line">        return true</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun render(outputBuffer: ByteBuffer,</span><br><span class="line">                        bufferInfo: MediaCodec.BufferInfo) &#123;</span><br><span class="line">        if (mAudioOutTempBuf!!.size &lt; bufferInfo.size &#x2F; 2) &#123;</span><br><span class="line">            mAudioOutTempBuf &#x3D; ShortArray(bufferInfo.size &#x2F; 2)</span><br><span class="line">        &#125;</span><br><span class="line">        outputBuffer.position(0)</span><br><span class="line">        outputBuffer.asShortBuffer().get(mAudioOutTempBuf, 0, bufferInfo.size&#x2F;2)</span><br><span class="line">        mAudioTrack!!.write(mAudioOutTempBuf!!, 0, bufferInfo.size &#x2F; 2)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    override fun doneDecode() &#123;</span><br><span class="line">        mAudioTrack?.stop()</span><br><span class="line">        mAudioTrack?.release()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>音频播放需要获取采样率，通道数，采样位数等</p>
+<p><strong>音频渲染器：AudioTrack</strong><br>由于解码出来的数据是PCM数据，所以直接使用AudioTrack播放即可。<br>最后就是将解码出来的数据写入AudioTrack，实现播放。<br>有一点注意的点是，需要把解码数据由ByteBuffer类型转换为ShortBuffer，这时Short数据类型的长度要减半。</p>
+<h3 id="音视频同步"><a href="#音视频同步" class="headerlink" title="音视频同步"></a>音视频同步</h3><p>播放器中一般存在三个时间，音频的时间，视频的时间，还有另外一个就是系统时间。这样可以用来实现同步的时间源就有三个：</p>
+<ul>
+<li>视频PTS</li>
+<li>音频PTS</li>
+<li>系统时间<br>系统时间作为统一信号源则非常适合，音视频彼此独立互不干扰，同时又可以保证基本一致。</li>
+</ul>
+<ol>
+<li>比对：在解码数据出来以后，检查PTS时间戳和当前系统流过的时间差距，快则延时，慢则直接播放</li>
+<li>矫正：在进入暂停或解码结束，重新恢复播放时，需要将系统流过的时间做一下矫正，将暂停的时间减去，恢复真正的流逝时间，即已播放时间。</li>
+</ol>
+<p>考虑暂停情况下的时间矫正,getCurTimeStamp()为PTS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;恢复同步的起始时间，即去除等待流失的时间</span><br><span class="line">  mStartTimeForSync &#x3D; System.currentTimeMillis() - getCurTimeStamp()</span><br></pre></td></tr></table></figure>
+<p>解码完成后做延时处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">private fun sleepRender() &#123;</span><br><span class="line">    val passTime &#x3D; System.currentTimeMillis() - mStartTimeForSync</span><br><span class="line">    val curTime &#x3D; getCurTimeStamp()</span><br><span class="line">    if (curTime &gt; passTime) &#123;</span><br><span class="line">        Thread.sleep(curTime - passTime)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://robinfjb.github.io/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E6%92%AD%E6%94%BE/" title="音视频开发-播放" target="_blank" rel="external">http://robinfjb.github.io/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E6%92%AD%E6%94%BE/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/robinfjb" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/robinfjb" target="_blank"><span class="text-dark">R7perfect</span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/04/01/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E5%B0%81%E8%A3%85/" title="音视频开发-封装"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/03/31/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BC%80%E5%8F%91-%E7%BC%96%E8%A7%A3%E7%A0%81/" title="音视频开发-编解码"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/robinfjb" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
